@@ -54,18 +54,37 @@ print("Most Recent DPR: " + str(most_recent_dpr))
 
 average_ap = 0.0
 num_events = 0
+avg_percent_autons_won = 0.0
 
 worlds_sku = 'RE-VRC-18-6082'
 
-for ranking in rankings_result:
-  if ranking['sku'] == worlds_sku:
+# get the % autos won for one tourney
+# and then get the average % autos won for all tourneys
+for event in rankings_result:
+  if event['sku'] == worlds_sku:
     continue
+  get_matches_event_url = "https://api.vexdb.io/v1/get_matches?team=" + requested_team + "&season=Turning Point" + "&sku=" + event['sku']
+  get_matches_event = requests.get(get_matches_event_url)
+  get_matches_event_data = get_matches_event.json()
+  get_matches_event_result = get_matches_event_data['result']
+  num_matches = 0
+  last_match_num = 0
+  for match in get_matches_event_result:
+    if match['matchnum'] <= last_match_num:
+      break
+    last_match_num = match['matchnum']
+    num_matches += 1
   num_events += 1
-  average_ap += ranking['ap']
+  current_ap = event['ap']
+  percent_autons_won = current_ap / 4.0 / num_matches
+  avg_percent_autons_won += percent_autons_won
+  average_ap += event['ap']
 
 if num_events == 0:
   print("This team has not been to any events.")
 else:
+  avg_percent_autons_won /= num_events
   average_ap /= num_events
 
 print("Average AP: " + str(average_ap))
+print("Average % Autons: " + str(avg_percent_autons_won * 100.0) + "%")
