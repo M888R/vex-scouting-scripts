@@ -2,7 +2,8 @@ import requests
 import json
 
 # can loop through some data file for which teams to search
-requested_team = "285Z"
+requested_team = "1104Z"
+print("Team: " + requested_team)
 
 get_rankings_url = "https://api.vexdb.io/v1/get_rankings?team=" + requested_team + "&season=Turning Point"
 get_matches_url = "https://api.vexdb.io/v1/get_matches?team=" + requested_team + "&season=Turning Point"
