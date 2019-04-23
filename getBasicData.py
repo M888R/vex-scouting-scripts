@@ -2,7 +2,7 @@ import requests
 import json
 
 # can loop through some data file for which teams to search
-requested_team = "1104Z"
+requested_team = "285Z"
 
 get_rankings_url = "https://api.vexdb.io/v1/get_rankings?team=" + requested_team + "&season=Turning Point"
 get_matches_url = "https://api.vexdb.io/v1/get_matches?team=" + requested_team + "&season=Turning Point"
@@ -20,9 +20,9 @@ average_score = 0.0
 num_matches = len(matches_result)
 
 for match in matches_result:
-  if match['scored'] == 0:
+  if match['scored'] == 0: # if match hasn't been scored remove it
     num_matches -= 1
-    print(num_matches)
+    continue
   isBlue = False
   if match['blue1'] == requested_team or match['blue2'] == requested_team or match['blue3'] == requested_team:
     isBlue = True
