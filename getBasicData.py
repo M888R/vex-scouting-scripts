@@ -20,9 +20,9 @@ average_score = 0.0
 num_matches = len(matches_result)
 
 for match in matches_result:
-  if match['scored'] == 0:
+  if match['scored'] == 0: # if match hasn't been scored remove it
     num_matches -= 1
-    print(num_matches)
+    continue
   isBlue = False
   if match['blue1'] == requested_team or match['blue2'] == requested_team or match['blue3'] == requested_team:
     isBlue = True
