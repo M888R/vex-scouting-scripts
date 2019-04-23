@@ -2,7 +2,7 @@ import requests
 import json
 
 # can loop through some data file for which teams to search
-requested_team = "1104Z"
+requested_team = raw_input("What team would you like stats for? ")  
 
 get_rankings_url = "https://api.vexdb.io/v1/get_rankings?team=" + requested_team + "&season=Turning Point"
 get_matches_url = "https://api.vexdb.io/v1/get_matches?team=" + requested_team + "&season=Turning Point"
@@ -35,7 +35,7 @@ for match in matches_result:
     average_score += match['redscore']
 
 average_score /= num_matches
-
+print(requested_team + " Statistics")
 print("Average Score: " + str(average_score))
 
 rankings_data = get_rankings.json()
