@@ -34,7 +34,12 @@ for match in matches_result:
   else:
     average_score += match['redscore']
 
-average_score /= num_matches
+if num_matches == 0:
+  print("This team hasn't played any matches.")
+else:
+  average_score /= num_matches
+
+
 print(requested_team + " Statistics")
 print("Average Score: " + str(average_score))
 
